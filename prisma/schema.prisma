@@ -1,0 +1,28 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// # Tarefa 1:
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  email String  @unique
+  posts Post[]
+}
+
+// #Task 4
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean
+
+  author  User? @relation(fields: [autorId], references: [id])
+  autorId Int?
+}
